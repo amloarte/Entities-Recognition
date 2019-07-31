@@ -1,0 +1,151 @@
+{% extends "master.html" %} {% load static %} {% block titulo %} {{ my_title }} {% endblock %} {% block style %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> {% endblock %} {% block contenido %}
+<div class="row">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <!-- disabled="TRUE" -->
+            <h1 class="lead">Receta Arroz Verde 502</h1>
+           
+            <h2>Texto Analizar</h2> <br>
+            
+            <textarea class="form-control" id="entradaTexto" cols="40" rows="8" rows="5" name="textoprueba">El caso Arroz Verde es una investigación publicada por el portal digital Mil Hojas. El portal digital reveló un correo electrónico recibido por Pamela Martínez supuesta asesora del expresidente Rafael Correa según Mil Hoja con un documento titulado Receta de Arroz Verde 502.  Según la investigación, el remitente del correo electrónico sería Geraldo Luiz Pereira de Souza, encargado de la administración y finanzas de Odebrecht en Ecuador. El mail demuestra presuntos aportes entregados por empresas multinacionales como Odebrecht al movimiento Alianza País desde noviembre de 2013 a febrero de 201 periodo en el que el expresidente Rafael Correa lideraba esa organización política. Según, Mil Hojas, las donaciones alcanzarían los 11,6 millones de dólares. Las empresas que habrían realizado los aportes son: Constructora Norberto Odebrecht, SK Engineering & Construction, Sinohydro Corporation, Grupo Azul, Telconet, China International Water & Electric Corp-CWE.
+			</textarea>
+        </div>
+        <button class="btn btn-primary text-center" id="buscarbtn" type="submit" name="prueba">Texto de prueba</button>
+    </form>
+</div>
+<div class="row">
+    <form action="" method="post">
+        {% csrf_token %}
+       <!-- <div class="form-group">
+            <label for="textarea">Texto</label>
+            <textarea class="form-control" id="entradaTexto" rows="5" name="palabraClave"></textarea>
+        </div>
+        <button class="btn btn-primary mb-12 text-center" id="buscarbtn" type="submit" name="buscar">Buscar</button>
+        -->
+    </form>
+</div>
+<div id="hide"> 
+<div class="row" >
+    <h2 >Conteo de Entidades</h2>
+    <div class="col-xs-12 blanco textnegro font-peque text-justify" >
+        <section class="row" id="parrafo">
+            <table id="tablaconteo" class="table-striped display" width="100%" >
+                <thead>
+                    <tr class="success">
+                        {% for clave in claves %}
+                        <th class="text-center md-3">{{ clave }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody class="searchable">
+                    <tr class="">
+                        {% for valor in valores %}
+                        <td class="text-center md-3">{{ valor }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+<br><br>
+<div class="row" >
+    <h2 >Clasificación Entidades</h2>
+    <div class="col-xs-12 blanco textnegro font-peque text-justify" >
+        <section class="row" id="parrafo">
+            {% regroup dicEntidades by etiqueta as dicEntidades %}
+            <ul>
+                {% for etiqueta in dicEntidades %}
+                <li>{{ etiqueta.grouper }}
+                    <ul>
+                        {% for elemento in etiqueta.list %}
+                        <li>{{ elemento.entidad }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</div>
+
+<div class="row" >
+    <h2 >Reconocimiento Entidades</h2>
+    <div class="col-xs-12 blanco textnegro font-peque text-justify ">
+        <section class="row">
+            <p class="text-justify" id="parrafo">
+                {{ mis_entidades | safe }}
+            </p>
+        </section>
+    </div>
+</div> <br><br>
+<!-- Intro -->
+<div class="row" >
+    <div class="col-xs-12 blanco textnegro">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="text-center">Consulta SPARQL del <b>RDF</b> sobre las <b>entidades encontradas</b>.</h3>
+            </div>
+            <div class="col-xs-12">
+                <section class="datatablas">
+                    <table id="example" class="display" width="100%">
+                        <thead>
+                            <tr class="success" >
+                                <th >Sujeto</th>
+                                <th >Predicado</th>
+                                <th >Objeto</th>
+                            </tr>
+                        </thead>
+                        <tbody class="searchable">
+                            {% for tripletas in datos %}
+                            <tr>
+                                {% for valor in tripletas %}
+                                <td><a href="{{ valor }}">{{ valor }}</a></td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr class="info">
+                                <th>Sujeto</th>
+                                <th>Predicado</th>
+                                <th>Objeto</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 textblanco">
+        <div class="row">
+            <div id="palabras"></div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %} {% block script %}
+<script type="text/Javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+
+
+<script type="text/javascript">
+   
+        $(document).ready(function() {
+            //document.getElementById('hide').style.display = "none";
+            $('#example').DataTable();
+            $('#tablaconteo').DataTable();
+        });
+        $("buscarbtn").click(function() {
+            document.getElementById('hide').style.display = "block";
+        });
+       
+
+</script>
+
+
+{% endblock %}

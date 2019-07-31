@@ -1,0 +1,272 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- NECESARIO PARA COMPARTIR extrae info -->
+    <meta name="description" content="Aplicacion de reconocimiento de entidades.">
+    <meta property="og:locale" content="es_ES" />
+    <!-- en_EN -->
+    <meta property="og:site_name" content="DATA SET ARROZ VERDE" />
+    <meta property="og:image" content="https://www.utpl.edu.ec/manual_imagen/images/institucional/UTPL-INSTITUCIONAL-FC.jpg" />
+    <link rel="icon" type="image/png" href="{% static 'icon/UTPL.png' %}" />
+    <title>
+        SBC - {% block titulo %} {% endblock %}
+    </title>
+
+    <link rel="shortcut icon" href="{% static 'assets/images/gt_favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+
+    <!-- Custom styles for our template -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-theme.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+
+    <link rel="stylesheet" href="{% static 'font/font.css' %}">
+    <!-- ESTILOS de la pag WEB -->
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <!-- EFEcTOS a GALERIA -->
+    <link rel="stylesheet" href="{% static 'css/ihover.css' %}">
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+    {% block style %} {% endblock %}
+</head>
+
+<body class="home">
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse   ">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle collapse" data-toggle="collapse" >
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand  log " href="{% url 'home' %}"><img src="{% static 'assets/images/logo-arroz.png' %}" alt="DATA SET ARROZ VERDE"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right">
+                    <li>
+                        <a href="{% url 'home' %}"><span class="icon-home2"></span>INICIO</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Tircnais/Entities-recognition"><span
+								class="icon-github"></span>PROYECTO-GIT</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mas<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#contactos"><span class="icon-address-book"></span>CONTACTO</a>
+                            </li>
+                            <li>
+                                <a href="#redes"><span class="icon-link"></span>REDES Sociales</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+    <!-- /.navbar -->
+
+    <!-- Header -->
+    <header id="head">
+        <div class="container">
+            <div class="row">
+                <b><h1 class="lead">RECONOCEDOR DE IDENTIDADES</h1></b>
+            </div>
+        </div>
+    </header>
+    <!-- /Header -->
+
+    <!-- Highlights - jumbotron -->
+    <div class="jumbotron top-space">
+        <div class="container">
+            {% block contenido %}
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore voluptates, saepe? Obcaecati reprehenderit, deserunt nihil repellat aspernatur pariatur animi ipsa, accusantium totam amet dignissimos incidunt quam quae omnis ad facere.
+            </p>
+            {% endblock %}
+        </div>
+    </div>
+    <!-- /Highlights -->
+
+    <!-- Social links. @TODO: replace by link/instructions in template -->
+    <section id="social">
+        <div class="container">
+            <div class="wrapper clearfix">
+                <!-- AddThis Button BEGIN -->
+                <div class="addthis_toolbox addthis_default_style">
+                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                    <a class="addthis_button_tweet"></a>
+                    <a class="addthis_button_linkedin_counter"></a>
+                    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                </div>
+                <!-- AddThis Button END -->
+            </div>
+        </div>
+    </section>
+    <!-- /social links -->
+
+
+    <footer id="footer" class="top-space">
+
+        <div class="footer1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 widget" id="contactos">
+                        <h3 class="widget-title text-center">Contacto</h3>
+                        <!--
+						<div class="col-md-4 widget-body">
+							<label>Nombre:</label>
+							<p>Cristian Aguirre</p>
+							<p>+234 23 9873237<br>
+								<a href="mailto:#">ceaguirre6@utpl.edu.ec</a><br>
+								<br>
+								La Banda, Loja
+							</p>
+							<a href="https://www.facebook.com/cristian.aguirre.9615566"><span class="icon-facebook facebook"></span>Facebook</a>
+						</div>
+						<div class="col-md-4 widget-body">
+							<label>Nombre:</label>
+							<p>Accel Loarte</p>
+							<p>+234 23 9873237<br>
+								<a href="mailto:#">#@utpl.edu.ec</a><br>
+								<br>
+								Las Pitas, Loja
+							</p>
+							<a href="#"><span class="icon-facebook facebook"></span>Facebook</a>
+						</div>
+						<div class="col-md-4 widget-body">
+							<label>Nombre:</label>
+							<p>Cristhian Apolo</p>
+							<p>+234 23 9873237<br>
+								<a href="mailto:#">#@utpl.edu.ec</a><br>
+								<br>
+								Esteban Godoy, Loja
+							</p>
+							<a href="#"><span class="icon-facebook facebook"></span>Facebook</a>
+						</div>
+						-->
+                        <div class="row">
+                            <div class="col-md-4 widget-body">
+                                <div class="row">
+                                    <div class="-col-md-6">
+                                        <label>Nombre:</label>
+                                        <p>Cristian Aguirre</p>
+                                        <a href="mailto:#">ceaguirre6@utpl.edu.ec</a><br>
+                                        <br> La Banda, Loja
+                                        </p>
+                                        <a href="https://www.facebook.com/cristian.aguirre.9615566"><span
+                                                class="icon-facebook facebook"></span>Facebook</a><br><br>
+                                        <a href="https://github.com/tircnais"><span
+                                            class="fa fa-github fa-2"><br></span>github</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 widget-body ">
+                                <div class="row">
+                                    <div class="-col-md-6">
+                                        <label>Nombre:</label>
+                                        <p>Accel Loarte</p>
+                                        <a href="mailto:#">amloarte@utpl.edu.ec</a><br>
+                                        <br> Las Pitas, Loja
+                                        </p>
+                                        <a href="https://www.facebook.com/cristian.aguirre.9615566"><span
+                                            class="icon-facebook facebook"></span>Facebook</a><br><br>
+                                        <a href="https://github.com/amloarte"><span
+                                            class="fa fa-github fa-2"><br></span>github</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4 widget-body">
+                                <div class="row">
+                                    <div class="-col-md-6">
+                                        <label>Nombre:</label>
+                                        <p>Cristhian Apolo</p>
+                                        <a href="mailto:#">caapolo2@utpl.edu.ec</a><br>
+                                        <br> Esteban Godoy, Loja
+                                        </p>
+                                        <a href="https://www.facebook.com/cristian.aguirre.9615566"><span
+                                            class="icon-facebook facebook"></span>Facebook</a><br><br>
+                                        <a href="https://github.com/caapolo"><span
+                                            class="fa fa-github fa-2"><br></span>github</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 widget">
+                        <h3 class="widget-title text-center">Caso 6 SBC</h3>
+                        <div class="widget-body">
+                            <p>Creación de una aplicación web, con el uso del Framework DJANGO, en su versión 2.2.2</p>
+                            <p>Recurso: Data Set de ARROZ VERDE, DB correspondiente.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /row of widgets -->
+            </div>
+        </div>
+
+        <div class="footer2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 widget">
+                        <div class="widget-body">
+                            <p class="simplenav">
+                                <a href="{% url 'home' %}"><span class="icon-home2"></span>INICIO</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 widget">
+                        <div class="widget-body">
+                            <p class="text-right">
+                                Copyright &copy; 2018, Cristian Aguirre. Desiñado en DJANGO</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row of widgets -->
+            </div>
+        </div>
+    </footer>
+    <span class="icon-home2 ir-arriba"></span>
+
+    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+    <!--
+	<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+	-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'assets/js/headroom.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/template.js' %}"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/acciones.js' %}"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block script %} {% endblock %}
+</body>
+
+</html>
