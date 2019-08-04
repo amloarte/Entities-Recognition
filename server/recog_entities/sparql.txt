@@ -1,0 +1,31 @@
+
+    PREFIX cavr: <http://localhost:8080/negociador/page>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    SELECT DISTINCT ?s ?p ?o
+    OPTIONAL{?s cavr:nombre "Pamela" ;
+    FROM <http://localhost:8890/SBC>
+    WHERE
+    {
+    ?s ?p ?o .
+                cavr:apellido "Pamela" ;
+                cavr:nombrePartido "Pamela" ;
+                cavr:nombreEmpresa "Pamela" ;
+                cavr:nombrePais "Pamela" ;
+                cavr:liderImplicado "Pamela" ;
+                cavr:involucrada "Pamela" ;
+                cavr:autoriza "Pamela" ;
+                cavr:nombradoPor "Pamela" .}
+    OPTIONAL{?a rdf:rest ?o ;
+                rdf:first ?o ;
+                rdfs:subPropertyOf ?o ;
+                owl:members ?o ;
+                rdf:type owl:Class ;
+                rdf:type owl:Ontology ;
+                rdf:type owl:ObjectProperty ;
+                rdf:type owl:DatatypeProperty ;
+                rdf:type owl:AsymmetricProperty ;
+                rdf:type owl:AllDisjointClasses ;
+                rdf:type owl:AllDisjointProperties .}
+    OPTIONAL{?s rdfs:label "Pamela" .}
+    OPTIONAL{?s rdfs:comment "Pamela" .}
+}
