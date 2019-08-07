@@ -97,7 +97,6 @@ def loadindex(request):
                     valorUri = valorUri[len(valorUri)-1]
                     valorUri = valorUri.replace('_', ' ')
                     if valorUri in entidadSpacy[indice]:
-                        
                         entidadEtiquetada = '<a href="' + uri + '">' + valorUri + " " + etiquetaEntidad[indice] + "</a>"
                         # Realiza la anotación luego de obtener la URI
                         mis_entidades = mis_entidades.replace(entidadSpacy[indice], entidadEtiquetada)
@@ -131,25 +130,19 @@ def anotacion(mi_entidad):
         
     llegada = mi_entidad.split("_")
     
+    
     # Endpoint con Virtuoso
     sbcEndpoint = SPARQLWrapper("http://localhost:8890/sparql/")
     # Consulta SPARQL para buscar en la BD la entidad encontrada
     consulta = """
-        PREFIX cavr:<http://localhost:8080/negociador/resource/>
-        SELECT *
-        WHERE 
-        { 
-                {?s  cavr:nombre ?o .FILTER (regex(str(?o), "%s")) .}  
-                UNION
-                {?s cavr:segundoApellido ?o .FILTER (regex(str(?o), "%s")) .}
-                UNION
-                {?s  cavr:codigoPersona ?o .FILTER (regex(str(?o), "%s")) .} 
-                UNION
-                {?s  cavr:nombradoPor  ?o .FILTER (regex(str(?o), "%s")) .} 
-                 UNION
-                {?s  cavr:nombreProvincia  ?o .FILTER (regex(str(?o), "%s")) .} 
-                
-        }""" % (llegada[0],llegada[0],llegada[0],llegada[0],llegada[0])
+    SELECT ?s ?p ?o
+    WHERE 
+    { 
+        ?s ?p ?o .
+        FILTER (regex(str(?s), "%s") || regex(str(?o), "%s"))
+    }""" %  (mi_entidad, mi_entidad)
+
+        
 
     # Ejecuta la consulta en el Endpoint de Virtuoso
     sbcEndpoint.setQuery(consulta)
@@ -163,11 +156,11 @@ def anotacion(mi_entidad):
     for result in results["results"]["bindings"]:
         lista = []
         listaS = result["s"]["value"]
-        #listaP = result["p"]["value"]
-        #listaO = result["o"]["value"]
+        listaP = result["p"]["value"]
+        listaO = result["o"]["value"]
         lista.append(listaS)
-        #lista.append(listaP)
-        #lista.append(listaO)
+        lista.append(listaP)
+        lista.append(listaO)
         return lista
 
 
